@@ -15,9 +15,10 @@
 @implementation KGCalendarCore
 
 + (NSArray *) calendarSheetForMonth:(NSInteger)month year:(NSInteger)year {
-    NSMutableArray *sheet = [NSMutableArray array];
+    NSMutableArray *sheet = nil;
     
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    calendar.firstWeekday = 2;
     
     NSDateComponents *anchorDateComponents = [[NSDateComponents alloc] init];
     [anchorDateComponents setCalendar:calendar];
@@ -34,6 +35,8 @@
     if (daysInMonthRange.location != NSNotFound) {
         daysInMonth = daysInMonthRange.length;
         
+        sheet = [NSMutableArray array];
+        
         for (int i = 0; i < daysInMonth; ++i) {
             int day = i + 1;
             
@@ -46,6 +49,7 @@
             NSDate *date = [dateComponents date];
             NSDateComponents *weekdayComponents = [calendar components:NSWeekdayCalendarUnit fromDate:date];
             int weekday = [weekdayComponents weekday];
+            weekday = [calendar ordinalityOfUnit:NSWeekdayCalendarUnit inUnit:NSWeekCalendarUnit forDate:date];
             
             NSMutableDictionary *dateDict = [[NSMutableDictionary alloc] init];
             [dateDict setObject:@(weekday) forKey:@"weekday"];
@@ -65,6 +69,32 @@
     [calendar release];
     
     return sheet;
+}
+
++ (NSArray *) calendarSheetForCurrentMonth {
+    NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSDate *date = [NSDate date];
+    NSDateComponents *dateComponents = [calendar components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+    return [self calendarSheetForMonth:dateComponents.month year:dateComponents.year];
+}
+
++ (int) firstDayOffsetForMonth:(NSInteger)month year:(NSInteger)year {
+    int offset = 0;
+    
+    NSArray *sheet = [KGCalendarCore calendarSheetForMonth:month year:year];
+    NSDictionary *firstDayDict = [sheet objectAtIndex:0];
+    int firstWeekday = [[firstDayDict objectForKey:@"weekday"] intValue];
+    offset = firstWeekday - 1;
+    
+    return offset;
+}
+
++ (int) firstDayOffsetForCurrentMonth {
+    NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSDate *date = [NSDate date];
+    NSDateComponents *dateComponents = [calendar components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+    int offset = [self firstDayOffsetForMonth:dateComponents.month year:dateComponents.year];
+    return offset;
 }
 
 + (NSArray *) leapYearsFrom1970 {

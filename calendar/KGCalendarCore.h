@@ -8,9 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface KGCalendarCore : NSObject
+@interface KGCalendarCore : NSObject {
+    // TODO: CACHE CURRENT MONTH!
+}
 
 + (NSArray *) calendarSheetForMonth:(NSInteger)month year:(NSInteger)year;
++ (NSArray *) calendarSheetForCurrentMonth;
+
++ (int) firstDayOffsetForMonth:(NSInteger)month year:(NSInteger)year;
++ (int) firstDayOffsetForCurrentMonth;
 
 + (NSArray *) leapYearsFrom1970;
 

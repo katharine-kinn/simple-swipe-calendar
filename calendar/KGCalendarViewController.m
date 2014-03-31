@@ -8,12 +8,17 @@
 
 #import "KGCalendarViewController.h"
 #import "KGCalendarCore.h"
+#import "KGCalendarViewCell.h"
 
 @interface KGCalendarViewController ()
 
 @end
 
 @implementation KGCalendarViewController
+
+@synthesize calendarSheet = _calendarSheet;
+
+static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +31,7 @@
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_calendarSheet release];
     [_calendarView release];
     [super dealloc];
 }
@@ -36,6 +42,9 @@
     
     [self setupSubviewPositionsWithCurrentInterfaceOrientation];
     
+    [self.calendarView registerClass:[KGCalendarViewCell class] forCellWithReuseIdentifier:__calendarCellReuseIdentifier];
+    
+    [self loadCalendarSheet];
     
 }
 
@@ -45,6 +54,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) loadCalendarSheet {
+    self.calendarSheet = [KGCalendarCore calendarSheetForCurrentMonth];
+    _firstDayOffset = [KGCalendarCore firstDayOffsetForCurrentMonth];
+}
+
 #pragma mark - collection view data source implementation
 
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -52,11 +66,33 @@
 }
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 32;
+    return self.calendarSheet.count + _firstDayOffset;
 }
 
+static BOOL __calendarCellNibLoaded = NO;
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return nil; // TODO: cell
+    
+    if (!__calendarCellNibLoaded) {
+        [self.calendarView registerNib:[UINib nibWithNibName:@"KGCalendarViewCell"
+                                                      bundle:[NSBundle mainBundle]]
+            forCellWithReuseIdentifier:__calendarCellReuseIdentifier];
+        __calendarCellNibLoaded = YES;
+    }
+    
+    KGCalendarViewCell *cell = [self.calendarView dequeueReusableCellWithReuseIdentifier:__calendarCellReuseIdentifier forIndexPath:indexPath];
+    cell.dayLabel.text = @"";
+    
+    for (int i = 0; i < self.calendarSheet.count; ++i) {
+        NSDictionary *dayDict = [self.calendarSheet objectAtIndex:i];
+        int day = [[dayDict objectForKey:@"day"] intValue];
+        
+        if (day - 1 + _firstDayOffset == indexPath.row) {
+            cell.dayLabel.text = [NSString stringWithFormat:@"%d", day];
+            break;
+        }
+    }
+    
+    return cell;
 }
 
 #pragma mark - status bar orientation
