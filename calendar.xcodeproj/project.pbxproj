@@ -19,6 +19,13 @@
 		C13F44D318E96C9B007CDD52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13F44BB18E96C9B007CDD52 /* UIKit.framework */; };
 		C13F44DB18E96C9B007CDD52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C13F44D918E96C9B007CDD52 /* InfoPlist.strings */; };
 		C13F44DD18E96C9B007CDD52 /* calendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44DC18E96C9B007CDD52 /* calendarTests.m */; };
+		C13F44EA18E9711E007CDD52 /* KGCalendarCore.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44E918E9711E007CDD52 /* KGCalendarCore.m */; };
+		C13F44ED18E97D65007CDD52 /* KGCalendarCase.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44EC18E97D65007CDD52 /* KGCalendarCase.m */; };
+		C13F44F218E987DE007CDD52 /* KGCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44F018E987DE007CDD52 /* KGCalendarViewController.m */; };
+		C13F44F318E987DE007CDD52 /* KGCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C13F44F118E987DE007CDD52 /* KGCalendarViewController.xib */; };
+		C183A63D18E99AE500C5B564 /* KGCalendarViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C183A63C18E99AE500C5B564 /* KGCalendarViewLayout.m */; };
+		C183A64018E99B6900C5B564 /* KGCalendarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C183A63F18E99B6900C5B564 /* KGCalendarViewCell.m */; };
+		C183A64218E99C0C00C5B564 /* KGCalendarViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C183A64118E99C0C00C5B564 /* KGCalendarViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +55,17 @@
 		C13F44D818E96C9B007CDD52 /* calendarTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "calendarTests-Info.plist"; sourceTree = "<group>"; };
 		C13F44DA18E96C9B007CDD52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C13F44DC18E96C9B007CDD52 /* calendarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = calendarTests.m; sourceTree = "<group>"; };
+		C13F44E818E9711E007CDD52 /* KGCalendarCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarCore.h; sourceTree = "<group>"; };
+		C13F44E918E9711E007CDD52 /* KGCalendarCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarCore.m; sourceTree = "<group>"; };
+		C13F44EC18E97D65007CDD52 /* KGCalendarCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarCase.m; sourceTree = "<group>"; };
+		C13F44EF18E987DE007CDD52 /* KGCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarViewController.h; sourceTree = "<group>"; };
+		C13F44F018E987DE007CDD52 /* KGCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarViewController.m; sourceTree = "<group>"; };
+		C13F44F118E987DE007CDD52 /* KGCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KGCalendarViewController.xib; sourceTree = "<group>"; };
+		C183A63B18E99AE500C5B564 /* KGCalendarViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarViewLayout.h; sourceTree = "<group>"; };
+		C183A63C18E99AE500C5B564 /* KGCalendarViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarViewLayout.m; sourceTree = "<group>"; };
+		C183A63E18E99B6900C5B564 /* KGCalendarViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarViewCell.h; sourceTree = "<group>"; };
+		C183A63F18E99B6900C5B564 /* KGCalendarViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarViewCell.m; sourceTree = "<group>"; };
+		C183A64118E99C0C00C5B564 /* KGCalendarViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KGCalendarViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +125,8 @@
 		C13F44BD18E96C9B007CDD52 /* calendar */ = {
 			isa = PBXGroup;
 			children = (
+				C13F44E618E96D08007CDD52 /* viewcontroller */,
+				C13F44EE18E987AE007CDD52 /* model */,
 				C13F44C618E96C9B007CDD52 /* KGCalendarAppDelegate.h */,
 				C13F44C718E96C9B007CDD52 /* KGCalendarAppDelegate.m */,
 				C13F44C918E96C9B007CDD52 /* Images.xcassets */,
@@ -130,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				C13F44DC18E96C9B007CDD52 /* calendarTests.m */,
+				C13F44EC18E97D65007CDD52 /* KGCalendarCase.m */,
 				C13F44D718E96C9B007CDD52 /* Supporting Files */,
 			);
 			path = calendarTests;
@@ -142,6 +163,30 @@
 				C13F44D918E96C9B007CDD52 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C13F44E618E96D08007CDD52 /* viewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				C13F44EF18E987DE007CDD52 /* KGCalendarViewController.h */,
+				C13F44F018E987DE007CDD52 /* KGCalendarViewController.m */,
+				C13F44F118E987DE007CDD52 /* KGCalendarViewController.xib */,
+				C183A63B18E99AE500C5B564 /* KGCalendarViewLayout.h */,
+				C183A63C18E99AE500C5B564 /* KGCalendarViewLayout.m */,
+				C183A63E18E99B6900C5B564 /* KGCalendarViewCell.h */,
+				C183A63F18E99B6900C5B564 /* KGCalendarViewCell.m */,
+				C183A64118E99C0C00C5B564 /* KGCalendarViewCell.xib */,
+			);
+			name = viewcontroller;
+			sourceTree = "<group>";
+		};
+		C13F44EE18E987AE007CDD52 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				C13F44E818E9711E007CDD52 /* KGCalendarCore.h */,
+				C13F44E918E9711E007CDD52 /* KGCalendarCore.m */,
+			);
+			name = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,7 +264,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C13F44F318E987DE007CDD52 /* KGCalendarViewController.xib in Resources */,
 				C13F44C218E96C9B007CDD52 /* InfoPlist.strings in Resources */,
+				C183A64218E99C0C00C5B564 /* KGCalendarViewCell.xib in Resources */,
 				C13F44CA18E96C9B007CDD52 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,8 +286,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C13F44F218E987DE007CDD52 /* KGCalendarViewController.m in Sources */,
 				C13F44C818E96C9B007CDD52 /* KGCalendarAppDelegate.m in Sources */,
+				C183A63D18E99AE500C5B564 /* KGCalendarViewLayout.m in Sources */,
 				C13F44C418E96C9B007CDD52 /* main.m in Sources */,
+				C183A64018E99B6900C5B564 /* KGCalendarViewCell.m in Sources */,
+				C13F44EA18E9711E007CDD52 /* KGCalendarCore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C13F44ED18E97D65007CDD52 /* KGCalendarCase.m in Sources */,
 				C13F44DD18E96C9B007CDD52 /* calendarTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,10 +411,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "calendar/calendar-Prefix.pch";
 				INFOPLIST_FILE = "calendar/calendar-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -372,10 +427,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "calendar/calendar-Prefix.pch";
 				INFOPLIST_FILE = "calendar/calendar-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -439,6 +497,7 @@
 				C13F44E218E96C9B007CDD52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C13F44E318E96C9B007CDD52 /* Build configuration list for PBXNativeTarget "calendarTests" */ = {
 			isa = XCConfigurationList;
@@ -447,6 +506,7 @@
 				C13F44E518E96C9B007CDD52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,8 +7,12 @@
 //
 
 #import "KGCalendarAppDelegate.h"
+#import "KGCalendarCore.h"
 
 @implementation KGCalendarAppDelegate
+
+@synthesize rootViewController = _rootViewController;
+@synthesize calendarViewController = _calendarViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -16,6 +20,14 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    self.rootViewController = [[[UINavigationController alloc] init] autorelease];
+    [self.window setRootViewController:self.rootViewController];
+
+    self.calendarViewController = [[[KGCalendarViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+    [self.rootViewController.view addSubview:self.calendarViewController.view];
+    
+    
     return YES;
 }
 
@@ -44,6 +56,9 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void) application:(UIApplication *)application didChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation {
 }
 
 @end
