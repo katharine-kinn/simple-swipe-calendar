@@ -16,5 +16,7 @@
 @property (nonatomic, retain) NSArray *calendarSheet;
 
 @property (retain, nonatomic) IBOutlet UICollectionView *calendarView;
+@property (retain, nonatomic) IBOutlet UILabel *monthLabel;
+@property (retain, nonatomic) IBOutlet UILabel *yearLabel;
 
 @end

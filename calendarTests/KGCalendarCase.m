@@ -27,26 +27,11 @@
     [super tearDown];
 }
 
-- (void) testLeapYearsCount {
-    NSArray *years = [KGCalendarCore leapYearsFrom1970];
-    XCTAssertNotEqual(years.count, 0, @"No way leap years count can be 0");
-}
-
-- (void) testValidFebruaryDaysCountOnLeapYear {
-    NSArray *sheet = [KGCalendarCore calendarSheetForMonth:2 year:2004];
-    XCTAssertEqual(sheet.count, 29, @"Invalid February days count for leap year %d", 2004);
-}
-
-- (void) testValidFebruaryDaysCountOnLeapYearsSince1970 {
-    NSArray *years = [KGCalendarCore leapYearsFrom1970];
-    for (id year in years) {
-        NSArray *sheet = [KGCalendarCore calendarSheetForMonth:2 year:[year intValue]];
-        XCTAssertEqual(sheet.count, 29, @"Invalid February days count for leap year %d", [year intValue]);
+- (void) testMonthsFlow {
+    for (int i = -1; i <= 13; ++i) {
+        [KGCalendarCore sharedCalendarCore].currentMonth = i;
+        XCTAssertTrue([KGCalendarCore sharedCalendarCore].currentMonth >= 1 && [KGCalendarCore sharedCalendarCore].currentMonth <= 12, @"invalid month for i = %d", i);
     }
-}
-
-- (void) testValidFebruaryDaysCountOnNonLeapYear {
-    
 }
 
 @end

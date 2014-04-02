@@ -8,16 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
+#define KGCalendarCurrentMonthChanged @"KGCalendarCurrentMonthChanged"
+#define KGCalendarCurrentYearChanged @"KGCalendarCurrentYearChanged"
+
 @interface KGCalendarCore : NSObject {
-    // TODO: CACHE CURRENT MONTH!
+    NSCalendar *_calendar;
+    NSInteger _currentMonth;
+    NSInteger _currentYear;
 }
 
-+ (NSArray *) calendarSheetForMonth:(NSInteger)month year:(NSInteger)year;
-+ (NSArray *) calendarSheetForCurrentMonth;
+@property (nonatomic, assign, getter = getCurrentMonth, setter = setCurrentMonth:) NSInteger currentMonth;
+@property (nonatomic, assign, getter = getCurrentYear, setter = setCurrentYear:) NSInteger currentYear;
 
-+ (int) firstDayOffsetForMonth:(NSInteger)month year:(NSInteger)year;
-+ (int) firstDayOffsetForCurrentMonth;
++ (KGCalendarCore *) sharedCalendarCore;
 
-+ (NSArray *) leapYearsFrom1970;
+- (NSArray *) calendarSheetForCurrentMonth;
+- (NSArray *) calendarSheetForToday;
+
+- (int) firstDayOffsetForCurrentMonth;
+
+//+ (NSArray *) leapYearsFrom1970;
 
 @end

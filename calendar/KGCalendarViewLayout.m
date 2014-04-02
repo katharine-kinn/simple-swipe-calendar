@@ -11,6 +11,14 @@
 
 @implementation KGCalendarViewLayout
 
+- (id) init {
+    if ((self = [super init])) {
+        self.layoutInfo = [[[NSMutableDictionary alloc] init] autorelease];
+        [self setup];
+    }
+    return self;
+}
+
 - (id) initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
         self.layoutInfo = [[[NSMutableDictionary alloc] init] autorelease];
@@ -27,7 +35,7 @@
 - (void) setup {
     self.columns = 7;
     
-    int minCellsCount = [KGCalendarCore calendarSheetForCurrentMonth].count + [KGCalendarCore firstDayOffsetForCurrentMonth] + 1;
+    int minCellsCount = (int)[[KGCalendarCore sharedCalendarCore] calendarSheetForCurrentMonth].count + (int)[[KGCalendarCore sharedCalendarCore] firstDayOffsetForCurrentMonth] + 1;
     
     while (minCellsCount % self.columns != 0) {
         minCellsCount++;
@@ -72,8 +80,8 @@
 }
 
 - (CGRect) frameForCellAtIndexPath:(NSIndexPath *)indexPath {
-    int cellRow = indexPath.row / self.columns;
-    int cellColumn = indexPath.row % self.columns;
+    int cellRow = (int)indexPath.row / self.columns;
+    int cellColumn = (int)indexPath.row % self.columns;
     
     float originX = self.cellSide * cellColumn;
     float originY =  self.cellSide * cellRow;

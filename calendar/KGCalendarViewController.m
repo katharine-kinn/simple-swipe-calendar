@@ -9,6 +9,7 @@
 #import "KGCalendarViewController.h"
 #import "KGCalendarCore.h"
 #import "KGCalendarViewCell.h"
+#import "KGCalendarViewLayout.h"
 
 @interface KGCalendarViewController ()
 
@@ -25,6 +26,7 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onStatusBarOrientationChanged:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+
     }
     return self;
 }
@@ -33,6 +35,8 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_calendarSheet release];
     [_calendarView release];
+    [_monthLabel release];
+    [_yearLabel release];
     [super dealloc];
 }
 
@@ -45,6 +49,13 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
     [self.calendarView registerClass:[KGCalendarViewCell class] forCellWithReuseIdentifier:__calendarCellReuseIdentifier];
     
     [self loadCalendarSheet];
+    [self setCurrentMonthLabelText];
+    [self setCurrentYearLabelText];
+
+    [self setupSwipeRecognizers];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMonthChanged:) name:KGCalendarCurrentMonthChanged object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onYearChanged:) name:KGCalendarCurrentYearChanged object:nil];
     
 }
 
@@ -54,9 +65,50 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
     // Dispose of any resources that can be recreated.
 }
 
+- (void) setupSwipeRecognizers {
+    UISwipeGestureRecognizer *leftSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleLeftSwipeGesture:)] autorelease];
+    [leftSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [self.view addGestureRecognizer:leftSwipeRecognizer];
+    
+    UISwipeGestureRecognizer *rightSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleRightSwipeGesture:)] autorelease];
+    [rightSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self.view addGestureRecognizer:rightSwipeRecognizer];
+}
+
+#pragma mark - data reload
+
 - (void) loadCalendarSheet {
-    self.calendarSheet = [KGCalendarCore calendarSheetForCurrentMonth];
-    _firstDayOffset = [KGCalendarCore firstDayOffsetForCurrentMonth];
+    self.calendarSheet = [[KGCalendarCore sharedCalendarCore] calendarSheetForCurrentMonth];
+    _firstDayOffset = [[KGCalendarCore sharedCalendarCore] firstDayOffsetForCurrentMonth];
+}
+
+- (void) onMonthChanged:(NSNotification *)notification {
+    
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        [self loadCalendarSheet];
+        [self.calendarView reloadData];
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        KGCalendarViewLayout *layout = [[[KGCalendarViewLayout alloc] init] autorelease];
+        [self.calendarView setCollectionViewLayout:layout animated:NO];
+    });
+    
+    [self setCurrentMonthLabelText];
+}
+
+- (void) onYearChanged:(NSNotification *)notification {
+    [self setCurrentYearLabelText];
+}
+
+- (void) setCurrentMonthLabelText {
+    NSString *monthString = [NSString stringWithFormat:@"%d", (int)[KGCalendarCore sharedCalendarCore].currentMonth];
+    [self.monthLabel setText:monthString];
+}
+
+- (void) setCurrentYearLabelText {
+    NSString *yearString = [NSString stringWithFormat:@"%d", (int)[KGCalendarCore sharedCalendarCore].currentYear];
+    [self.yearLabel setText:yearString];
 }
 
 #pragma mark - collection view data source implementation
@@ -93,6 +145,16 @@ static BOOL __calendarCellNibLoaded = NO;
     }
     
     return cell;
+}
+
+#pragma mark - 
+
+- (void) handleLeftSwipeGesture:(UISwipeGestureRecognizer *)recognizer {
+    [KGCalendarCore sharedCalendarCore].currentMonth++;
+}
+
+- (void) handleRightSwipeGesture:(UISwipeGestureRecognizer *)recognizer {
+    [KGCalendarCore sharedCalendarCore].currentMonth--;
 }
 
 #pragma mark - status bar orientation
