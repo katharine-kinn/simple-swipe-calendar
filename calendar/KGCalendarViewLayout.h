@@ -21,6 +21,4 @@
 @property (nonatomic, assign) int cellSide;
 @property (nonatomic, retain) NSMutableDictionary *layoutInfo;
 
-- (void) setup;
-
 @end

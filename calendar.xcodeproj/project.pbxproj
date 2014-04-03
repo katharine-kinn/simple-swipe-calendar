@@ -21,8 +21,14 @@
 		C13F44DD18E96C9B007CDD52 /* calendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44DC18E96C9B007CDD52 /* calendarTests.m */; };
 		C13F44EA18E9711E007CDD52 /* KGCalendarCore.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44E918E9711E007CDD52 /* KGCalendarCore.m */; };
 		C13F44ED18E97D65007CDD52 /* KGCalendarCase.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44EC18E97D65007CDD52 /* KGCalendarCase.m */; };
-		C13F44F218E987DE007CDD52 /* KGCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44F018E987DE007CDD52 /* KGCalendarViewController.m */; };
-		C13F44F318E987DE007CDD52 /* KGCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C13F44F118E987DE007CDD52 /* KGCalendarViewController.xib */; };
+		C17F76EC18EC5EEA003D4935 /* KGCalendarScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F76EA18EC5EEA003D4935 /* KGCalendarScrollViewController.m */; };
+		C17F76ED18EC5EEA003D4935 /* KGCalendarScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C17F76EB18EC5EEA003D4935 /* KGCalendarScrollViewController.xib */; };
+		C17F76F118EC6083003D4935 /* KGCalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F76EF18EC6083003D4935 /* KGCalendarTableViewCell.m */; };
+		C17F76F218EC6083003D4935 /* KGCalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C17F76F018EC6083003D4935 /* KGCalendarTableViewCell.xib */; };
+		C17F76F918EC7087003D4935 /* KGCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F76F718EC7087003D4935 /* KGCalendarViewController.m */; };
+		C17F76FA18EC7087003D4935 /* KGCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C17F76F818EC7087003D4935 /* KGCalendarViewController.xib */; };
+		C17F76FE18EC709C003D4935 /* KGCalendarSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F76FC18EC709C003D4935 /* KGCalendarSwipeViewController.m */; };
+		C17F76FF18EC709C003D4935 /* KGCalendarSwipeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C17F76FD18EC709C003D4935 /* KGCalendarSwipeViewController.xib */; };
 		C183A63D18E99AE500C5B564 /* KGCalendarViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C183A63C18E99AE500C5B564 /* KGCalendarViewLayout.m */; };
 		C183A64018E99B6900C5B564 /* KGCalendarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C183A63F18E99B6900C5B564 /* KGCalendarViewCell.m */; };
 		C183A64218E99C0C00C5B564 /* KGCalendarViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C183A64118E99C0C00C5B564 /* KGCalendarViewCell.xib */; };
@@ -58,9 +64,18 @@
 		C13F44E818E9711E007CDD52 /* KGCalendarCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarCore.h; sourceTree = "<group>"; };
 		C13F44E918E9711E007CDD52 /* KGCalendarCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarCore.m; sourceTree = "<group>"; };
 		C13F44EC18E97D65007CDD52 /* KGCalendarCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarCase.m; sourceTree = "<group>"; };
-		C13F44EF18E987DE007CDD52 /* KGCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarViewController.h; sourceTree = "<group>"; };
-		C13F44F018E987DE007CDD52 /* KGCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarViewController.m; sourceTree = "<group>"; };
-		C13F44F118E987DE007CDD52 /* KGCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KGCalendarViewController.xib; sourceTree = "<group>"; };
+		C17F76E918EC5EEA003D4935 /* KGCalendarScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarScrollViewController.h; sourceTree = "<group>"; };
+		C17F76EA18EC5EEA003D4935 /* KGCalendarScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarScrollViewController.m; sourceTree = "<group>"; };
+		C17F76EB18EC5EEA003D4935 /* KGCalendarScrollViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KGCalendarScrollViewController.xib; sourceTree = "<group>"; };
+		C17F76EE18EC6083003D4935 /* KGCalendarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarTableViewCell.h; sourceTree = "<group>"; };
+		C17F76EF18EC6083003D4935 /* KGCalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarTableViewCell.m; sourceTree = "<group>"; };
+		C17F76F018EC6083003D4935 /* KGCalendarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KGCalendarTableViewCell.xib; sourceTree = "<group>"; };
+		C17F76F618EC7087003D4935 /* KGCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarViewController.h; sourceTree = "<group>"; };
+		C17F76F718EC7087003D4935 /* KGCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarViewController.m; sourceTree = "<group>"; };
+		C17F76F818EC7087003D4935 /* KGCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KGCalendarViewController.xib; sourceTree = "<group>"; };
+		C17F76FB18EC709C003D4935 /* KGCalendarSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarSwipeViewController.h; sourceTree = "<group>"; };
+		C17F76FC18EC709C003D4935 /* KGCalendarSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarSwipeViewController.m; sourceTree = "<group>"; };
+		C17F76FD18EC709C003D4935 /* KGCalendarSwipeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KGCalendarSwipeViewController.xib; sourceTree = "<group>"; };
 		C183A63B18E99AE500C5B564 /* KGCalendarViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarViewLayout.h; sourceTree = "<group>"; };
 		C183A63C18E99AE500C5B564 /* KGCalendarViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarViewLayout.m; sourceTree = "<group>"; };
 		C183A63E18E99B6900C5B564 /* KGCalendarViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarViewCell.h; sourceTree = "<group>"; };
@@ -168,14 +183,23 @@
 		C13F44E618E96D08007CDD52 /* viewcontroller */ = {
 			isa = PBXGroup;
 			children = (
-				C13F44EF18E987DE007CDD52 /* KGCalendarViewController.h */,
-				C13F44F018E987DE007CDD52 /* KGCalendarViewController.m */,
-				C13F44F118E987DE007CDD52 /* KGCalendarViewController.xib */,
 				C183A63B18E99AE500C5B564 /* KGCalendarViewLayout.h */,
 				C183A63C18E99AE500C5B564 /* KGCalendarViewLayout.m */,
 				C183A63E18E99B6900C5B564 /* KGCalendarViewCell.h */,
 				C183A63F18E99B6900C5B564 /* KGCalendarViewCell.m */,
 				C183A64118E99C0C00C5B564 /* KGCalendarViewCell.xib */,
+				C17F76F618EC7087003D4935 /* KGCalendarViewController.h */,
+				C17F76F718EC7087003D4935 /* KGCalendarViewController.m */,
+				C17F76F818EC7087003D4935 /* KGCalendarViewController.xib */,
+				C17F76E918EC5EEA003D4935 /* KGCalendarScrollViewController.h */,
+				C17F76FB18EC709C003D4935 /* KGCalendarSwipeViewController.h */,
+				C17F76FC18EC709C003D4935 /* KGCalendarSwipeViewController.m */,
+				C17F76FD18EC709C003D4935 /* KGCalendarSwipeViewController.xib */,
+				C17F76EA18EC5EEA003D4935 /* KGCalendarScrollViewController.m */,
+				C17F76EB18EC5EEA003D4935 /* KGCalendarScrollViewController.xib */,
+				C17F76EE18EC6083003D4935 /* KGCalendarTableViewCell.h */,
+				C17F76EF18EC6083003D4935 /* KGCalendarTableViewCell.m */,
+				C17F76F018EC6083003D4935 /* KGCalendarTableViewCell.xib */,
 			);
 			name = viewcontroller;
 			sourceTree = "<group>";
@@ -264,10 +288,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C13F44F318E987DE007CDD52 /* KGCalendarViewController.xib in Resources */,
+				C17F76FA18EC7087003D4935 /* KGCalendarViewController.xib in Resources */,
+				C17F76FF18EC709C003D4935 /* KGCalendarSwipeViewController.xib in Resources */,
 				C13F44C218E96C9B007CDD52 /* InfoPlist.strings in Resources */,
 				C183A64218E99C0C00C5B564 /* KGCalendarViewCell.xib in Resources */,
 				C13F44CA18E96C9B007CDD52 /* Images.xcassets in Resources */,
+				C17F76ED18EC5EEA003D4935 /* KGCalendarScrollViewController.xib in Resources */,
+				C17F76F218EC6083003D4935 /* KGCalendarTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,11 +313,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C13F44F218E987DE007CDD52 /* KGCalendarViewController.m in Sources */,
+				C17F76F918EC7087003D4935 /* KGCalendarViewController.m in Sources */,
+				C17F76EC18EC5EEA003D4935 /* KGCalendarScrollViewController.m in Sources */,
 				C13F44C818E96C9B007CDD52 /* KGCalendarAppDelegate.m in Sources */,
+				C17F76F118EC6083003D4935 /* KGCalendarTableViewCell.m in Sources */,
 				C183A63D18E99AE500C5B564 /* KGCalendarViewLayout.m in Sources */,
 				C13F44C418E96C9B007CDD52 /* main.m in Sources */,
 				C183A64018E99B6900C5B564 /* KGCalendarViewCell.m in Sources */,
+				C17F76FE18EC709C003D4935 /* KGCalendarSwipeViewController.m in Sources */,
 				C13F44EA18E9711E007CDD52 /* KGCalendarCore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,20 +13,20 @@
 
 @interface KGCalendarCore : NSObject {
     NSCalendar *_calendar;
-    NSInteger _currentMonth;
-    NSInteger _currentYear;
+    
+    NSInteger _currentMonthDaysCount;
+    NSInteger _currentFirstMonthDayOffset;
 }
 
-@property (nonatomic, assign, getter = getCurrentMonth, setter = setCurrentMonth:) NSInteger currentMonth;
-@property (nonatomic, assign, getter = getCurrentYear, setter = setCurrentYear:) NSInteger currentYear;
+@property (nonatomic, assign) NSInteger currentMonthDaysCount;
+@property (nonatomic, assign) NSInteger currentFirstMonthDayOffset;
 
 + (KGCalendarCore *) sharedCalendarCore;
 
-- (NSArray *) calendarSheetForCurrentMonth;
-- (NSArray *) calendarSheetForToday;
+- (NSArray *) calendarSheetForMonth:(NSInteger)month year:(NSInteger)year;
+- (int) firstDayOffsetForMonth:(NSInteger)month year:(NSInteger)year;
 
-- (int) firstDayOffsetForCurrentMonth;
+- (NSDateComponents *) getTodayDateComponents;
 
-//+ (NSArray *) leapYearsFrom1970;
 
 @end

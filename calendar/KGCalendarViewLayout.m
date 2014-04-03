@@ -35,7 +35,7 @@
 - (void) setup {
     self.columns = 7;
     
-    int minCellsCount = (int)[[KGCalendarCore sharedCalendarCore] calendarSheetForCurrentMonth].count + (int)[[KGCalendarCore sharedCalendarCore] firstDayOffsetForCurrentMonth] + 1;
+    int minCellsCount = [KGCalendarCore sharedCalendarCore].currentMonthDaysCount + [KGCalendarCore sharedCalendarCore].currentFirstMonthDayOffset + 1;
     
     while (minCellsCount % self.columns != 0) {
         minCellsCount++;

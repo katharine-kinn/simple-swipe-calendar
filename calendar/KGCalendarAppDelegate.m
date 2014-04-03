@@ -24,8 +24,10 @@
     self.rootViewController = [[[UINavigationController alloc] init] autorelease];
     [self.window setRootViewController:self.rootViewController];
 
-    self.calendarViewController = [[[KGCalendarViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-    [self.rootViewController.view addSubview:self.calendarViewController.view];
+//    self.calendarViewController = [[[KGCalendarViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+//    self.calendalScrollViewController = [[[KGCalendarScrollViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+    self.calendarSwipeViewController = [[[KGCalendarSwipeViewController alloc] initWithRelativeToSuperviewPosition:CGPointMake(200, 200)] autorelease];
+    [self.rootViewController.view addSubview:self.calendarSwipeViewController.view];
     
     
     return YES;

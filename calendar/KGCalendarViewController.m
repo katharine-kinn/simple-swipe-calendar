@@ -18,45 +18,83 @@
 @implementation KGCalendarViewController
 
 @synthesize calendarSheet = _calendarSheet;
+@synthesize currentYear = _currentYear;
+@synthesize currentMonth = _currentMonth;
+@synthesize delegate = _delegate;
 
 static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id) initWithMonth:(NSInteger)month year:(NSInteger)year delegate:(NSObject<KGCalendarViewControllerDelegate> *)delegate {
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onStatusBarOrientationChanged:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-
+        self.delegate = delegate;
+        _currentMonth = month;
+        _currentYear = year;
+//        [self setupCurrentDateWithMonth:month year:year];
     }
     return self;
+}
+
+- (id) initWithMonth:(NSInteger)month year:(NSInteger)year {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        self.delegate = nil;
+        _currentMonth = month;
+        _currentYear = year;
+//        [self setupCurrentDateWithMonth:month year:year];
+    }
+    return self;
+}
+
+- (id) initWithTodayWithDelegate:(NSObject<KGCalendarViewControllerDelegate> *)delegate {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        self.delegate = delegate;
+        NSDateComponents *dateComponents = [[KGCalendarCore sharedCalendarCore] getTodayDateComponents];
+        _currentMonth = dateComponents.month;
+        _currentYear = dateComponents.year;
+//        [self setupCurrentDateWithMonth:dateComponents.month year:dateComponents.year];
+    }
+    return self;
+}
+
+- (id) initWithToday {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        self.delegate = nil;
+        NSDateComponents *dateComponents = [[KGCalendarCore sharedCalendarCore] getTodayDateComponents];
+        _currentMonth = dateComponents.month;
+        _currentYear = dateComponents.year;
+//        [self setupCurrentDateWithMonth:dateComponents.month year:dateComponents.year];
+    }
+    return self;
+}
+
+- (void) setupCurrentDateWithMonth:(NSInteger)month year:(NSInteger)year {
+    self.currentMonth = month;
+    self.currentYear = year;
 }
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_calendarSheet release];
     [_calendarView release];
-    [_monthLabel release];
-    [_yearLabel release];
     [super dealloc];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self setupSubviewPositionsWithCurrentInterfaceOrientation];
-    
+
     [self.calendarView registerClass:[KGCalendarViewCell class] forCellWithReuseIdentifier:__calendarCellReuseIdentifier];
     
-    [self loadCalendarSheet];
-    [self setCurrentMonthLabelText];
-    [self setCurrentYearLabelText];
-
-    [self setupSwipeRecognizers];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMonthChanged:) name:KGCalendarCurrentMonthChanged object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onYearChanged:) name:KGCalendarCurrentYearChanged object:nil];
+    NSInteger month = self.currentMonth;
+    _currentMonth = 0;
     
+    NSInteger year = self.currentYear;
+    _currentYear = 0;
+    
+    [self setupCurrentDateWithMonth:month year:year];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,50 +103,13 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
     // Dispose of any resources that can be recreated.
 }
 
-- (void) setupSwipeRecognizers {
-    UISwipeGestureRecognizer *leftSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleLeftSwipeGesture:)] autorelease];
-    [leftSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [self.view addGestureRecognizer:leftSwipeRecognizer];
-    
-    UISwipeGestureRecognizer *rightSwipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleRightSwipeGesture:)] autorelease];
-    [rightSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.view addGestureRecognizer:rightSwipeRecognizer];
-}
-
 #pragma mark - data reload
 
 - (void) loadCalendarSheet {
-    self.calendarSheet = [[KGCalendarCore sharedCalendarCore] calendarSheetForCurrentMonth];
-    _firstDayOffset = [[KGCalendarCore sharedCalendarCore] firstDayOffsetForCurrentMonth];
-}
-
-- (void) onMonthChanged:(NSNotification *)notification {
     
-    dispatch_async(dispatch_get_main_queue(), ^(){
-        [self loadCalendarSheet];
-        [self.calendarView reloadData];
-    });
-    
-    dispatch_async(dispatch_get_main_queue(), ^(){
-        KGCalendarViewLayout *layout = [[[KGCalendarViewLayout alloc] init] autorelease];
-        [self.calendarView setCollectionViewLayout:layout animated:NO];
-    });
-    
-    [self setCurrentMonthLabelText];
-}
+    self.calendarSheet = [[KGCalendarCore sharedCalendarCore] calendarSheetForMonth:self.currentMonth year:self.currentYear];
+    _firstDayOffset = [[KGCalendarCore sharedCalendarCore] firstDayOffsetForMonth:self.currentMonth year:self.currentMonth];
 
-- (void) onYearChanged:(NSNotification *)notification {
-    [self setCurrentYearLabelText];
-}
-
-- (void) setCurrentMonthLabelText {
-    NSString *monthString = [NSString stringWithFormat:@"%d", (int)[KGCalendarCore sharedCalendarCore].currentMonth];
-    [self.monthLabel setText:monthString];
-}
-
-- (void) setCurrentYearLabelText {
-    NSString *yearString = [NSString stringWithFormat:@"%d", (int)[KGCalendarCore sharedCalendarCore].currentYear];
-    [self.yearLabel setText:yearString];
 }
 
 #pragma mark - collection view data source implementation
@@ -147,15 +148,97 @@ static BOOL __calendarCellNibLoaded = NO;
     return cell;
 }
 
-#pragma mark - 
+#pragma mark - display sheet logic
 
-- (void) handleLeftSwipeGesture:(UISwipeGestureRecognizer *)recognizer {
-    [KGCalendarCore sharedCalendarCore].currentMonth++;
+static int __monthsMax = 12;
+
+- (NSInteger) getCurrentMonth {
+    return _currentMonth;
 }
 
-- (void) handleRightSwipeGesture:(UISwipeGestureRecognizer *)recognizer {
-    [KGCalendarCore sharedCalendarCore].currentMonth--;
+- (NSInteger) getCurrentYear {
+    return _currentYear;
 }
+
+- (void) setCurrentMonth:(NSInteger)currentMonth {
+    
+    NSAssert(currentMonth >= 0, @"Month cannot be negative");
+
+    __block NSInteger currentMonthRef = currentMonth;
+    
+    if (_currentMonth != currentMonth) {
+        
+        NSInteger oldMonth = _currentMonth;
+        
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            if (currentMonthRef > __monthsMax) {
+                currentMonthRef = 1;
+                self.currentYear++;
+            } else if (currentMonthRef == 0) {
+                currentMonthRef = __monthsMax;
+                self.currentYear--;
+            }
+            
+            _currentMonth = currentMonthRef;
+            
+            [self loadCalendarSheet];
+            [self.calendarView reloadData];
+            
+            if (self.delegate) {
+                [KGCalendarCore sharedCalendarCore].currentMonthDaysCount = self.calendarSheet.count;
+                [KGCalendarCore sharedCalendarCore].currentFirstMonthDayOffset = _firstDayOffset;
+            }
+
+        });
+        
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            KGCalendarViewLayout *layout = [[[KGCalendarViewLayout alloc] init] autorelease];
+            [self.calendarView setCollectionViewLayout:layout animated:NO];
+        });
+        
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            if (self.delegate) {
+                [self.delegate onMonthChanged:oldMonth];
+            }
+        });
+    
+    }
+    
+}
+
+- (void) setCurrentYear:(NSInteger)currentYear {
+
+    NSAssert(currentYear >= 0, @"Year cannot be negative");
+    
+    if (_currentYear != currentYear) {
+        NSInteger oldYear = _currentYear;
+        
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            _currentYear = currentYear;
+            [self loadCalendarSheet];
+            [self.calendarView reloadData];
+            
+            if (self.delegate) {
+                [KGCalendarCore sharedCalendarCore].currentMonthDaysCount = self.calendarSheet.count;
+                [KGCalendarCore sharedCalendarCore].currentFirstMonthDayOffset = _firstDayOffset;
+            }
+
+        });
+        
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            KGCalendarViewLayout *layout = [[[KGCalendarViewLayout alloc] init] autorelease];
+            [self.calendarView setCollectionViewLayout:layout animated:NO];
+        });
+        
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            if (self.delegate) {
+                [self.delegate onYearChanged:oldYear];
+            }
+        });
+    }
+    
+}
+
 
 #pragma mark - status bar orientation
 
