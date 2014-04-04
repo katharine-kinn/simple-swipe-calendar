@@ -154,6 +154,13 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
         
         if (day - 1 + _firstDayOffset == indexPath.row) {
             cell.dayLabel.text = [NSString stringWithFormat:@"%d", day];
+            
+            NSDateComponents *today = [[KGCalendarCore sharedCalendarCore] getTodayDateComponents];
+            cell.backgroundColor = [UIColor whiteColor];
+            if (day == today.day && self.currentMonth == today.month && self.currentYear == today.year) {
+                cell.backgroundColor = [UIColor colorWithRed:1. green:153./255. blue:51./255. alpha:1.];
+            }
+            
             break;
         }
     }

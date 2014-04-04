@@ -103,7 +103,7 @@ static KGCalendarCore *__instance = nil;
 
 - (NSDateComponents *) getTodayDateComponents {
     NSDate *date = [NSDate date];
-    NSDateComponents *dateComponents = [_calendar components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+    NSDateComponents *dateComponents = [_calendar components:NSMonthCalendarUnit | NSYearCalendarUnit | NSDayCalendarUnit fromDate:date];
     return dateComponents;
 }
 
@@ -120,7 +120,18 @@ static KGCalendarCore *__instance = nil;
 - (NSArray *) localizedWeekdayNamesShort {
     NSMutableArray *weekdayNames = [NSMutableArray array];
     
-    for (int i = 0; i < 7; ++i) {
+    for (int i = _calendar.firstWeekday - 1; i < 7; ++i) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setCalendar:_calendar];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        
+        NSString *name = [[dateFormatter shortWeekdaySymbols] objectAtIndex:i];
+        [dateFormatter release];
+        [weekdayNames addObject:name];
+    }
+    
+    for (int i = 0; i < _calendar.firstWeekday - 1; ++i) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setCalendar:_calendar];
         [dateFormatter setLocale:[NSLocale currentLocale]];

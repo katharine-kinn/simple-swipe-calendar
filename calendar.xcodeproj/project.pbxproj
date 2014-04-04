@@ -20,7 +20,6 @@
 		C13F44DB18E96C9B007CDD52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C13F44D918E96C9B007CDD52 /* InfoPlist.strings */; };
 		C13F44DD18E96C9B007CDD52 /* calendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44DC18E96C9B007CDD52 /* calendarTests.m */; };
 		C13F44EA18E9711E007CDD52 /* KGCalendarCore.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44E918E9711E007CDD52 /* KGCalendarCore.m */; };
-		C13F44ED18E97D65007CDD52 /* KGCalendarCase.m in Sources */ = {isa = PBXBuildFile; fileRef = C13F44EC18E97D65007CDD52 /* KGCalendarCase.m */; };
 		C17F76F918EC7087003D4935 /* KGCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F76F718EC7087003D4935 /* KGCalendarViewController.m */; };
 		C17F76FA18EC7087003D4935 /* KGCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C17F76F818EC7087003D4935 /* KGCalendarViewController.xib */; };
 		C17F76FE18EC709C003D4935 /* KGCalendarSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F76FC18EC709C003D4935 /* KGCalendarSwipeViewController.m */; };
@@ -61,7 +60,6 @@
 		C13F44DC18E96C9B007CDD52 /* calendarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = calendarTests.m; sourceTree = "<group>"; };
 		C13F44E818E9711E007CDD52 /* KGCalendarCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarCore.h; sourceTree = "<group>"; };
 		C13F44E918E9711E007CDD52 /* KGCalendarCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarCore.m; sourceTree = "<group>"; };
-		C13F44EC18E97D65007CDD52 /* KGCalendarCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarCase.m; sourceTree = "<group>"; };
 		C17F76F618EC7087003D4935 /* KGCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGCalendarViewController.h; sourceTree = "<group>"; };
 		C17F76F718EC7087003D4935 /* KGCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGCalendarViewController.m; sourceTree = "<group>"; };
 		C17F76F818EC7087003D4935 /* KGCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KGCalendarViewController.xib; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 			isa = PBXGroup;
 			children = (
 				C13F44DC18E96C9B007CDD52 /* calendarTests.m */,
-				C13F44EC18E97D65007CDD52 /* KGCalendarCase.m */,
 				C13F44D718E96C9B007CDD52 /* Supporting Files */,
 			);
 			path = calendarTests;
@@ -319,7 +316,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C13F44ED18E97D65007CDD52 /* KGCalendarCase.m in Sources */,
 				C13F44DD18E96C9B007CDD52 /* calendarTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
