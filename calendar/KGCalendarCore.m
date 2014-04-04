@@ -108,22 +108,30 @@ static KGCalendarCore *__instance = nil;
 }
 
 - (NSString *) localizedMonthName:(NSInteger)month {
-//
-//    NSDateComponents *dateComponents = [[[NSDateComponents alloc] init] autorelease];
-//    [dateComponents setCalendar:_calendar];
-//    [dateComponents setMonth:month];
-//    
-//    NSDate *date = [dateComponents date];
-    
-//    NSLocale *locale = ;
-//    NSString *dateString = [date descriptionWithLocale:locale];
-    
-    
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setCalendar:_calendar];
     [dateFormatter setLocale:[NSLocale currentLocale]];
     [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    return [[dateFormatter monthSymbols] objectAtIndex:month - 1];
+    NSString *name = [[dateFormatter monthSymbols] objectAtIndex:month - 1];
+    [dateFormatter release];
+    return name;
+}
+
+- (NSArray *) localizedWeekdayNamesShort {
+    NSMutableArray *weekdayNames = [NSMutableArray array];
+    
+    for (int i = 0; i < 7; ++i) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setCalendar:_calendar];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        
+        NSString *name = [[dateFormatter shortWeekdaySymbols] objectAtIndex:i];
+        [dateFormatter release];
+        [weekdayNames addObject:name];
+    }
+    
+    return weekdayNames;
 }
 
 

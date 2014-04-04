@@ -21,6 +21,7 @@
 - (int) firstDayOffsetForMonth:(NSInteger)month year:(NSInteger)year;
 
 - (NSString *) localizedMonthName:(NSInteger)month;
+- (NSArray *) localizedWeekdayNamesShort;
 
 - (NSDateComponents *) getTodayDateComponents;
 

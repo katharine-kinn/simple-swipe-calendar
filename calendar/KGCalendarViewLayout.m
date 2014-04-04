@@ -9,11 +9,13 @@
 #import "KGCalendarViewLayout.h"
 #import "KGCalendarCore.h"
 #import "KGCalendarViewController.h"
+#import "KGCalendarHeaderView.h"
 
 @implementation KGCalendarViewLayout
 
 - (id) init {
     if ((self = [super init])) {
+        _headerNibLoaded = NO;
         self.layoutInfo = [[[NSMutableDictionary alloc] init] autorelease];
         [self setup];
     }
@@ -22,6 +24,7 @@
 
 - (id) initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
+        _headerNibLoaded = NO;
         self.layoutInfo = [[[NSMutableDictionary alloc] init] autorelease];
         [self setup];
     }
@@ -33,10 +36,16 @@
     [super dealloc];
 }
 
+static NSString *__calendarHeaderKind = @"CalendarHeader";
 - (void) setup {
     self.columns = 7;
     self.cellSide = 42;
-    
+    [self registerClass:[KGCalendarHeaderView class] forDecorationViewOfKind:__calendarHeaderKind];
+    if (!_headerNibLoaded) {
+        UINib *headerNib = [UINib nibWithNibName:@"KGCalendarHeaderView" bundle:nil];
+        [self registerNib:headerNib forDecorationViewOfKind:__calendarHeaderKind];
+        _headerNibLoaded = YES;
+    }
 }
 
 - (CGSize) collectionViewContentSize {
@@ -58,6 +67,11 @@
 
 - (UICollectionViewLayoutAttributes *) layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewLayoutAttributes *attributes = [self.layoutInfo objectForKey:indexPath];
+    return attributes;
+}
+
+- (UICollectionViewLayoutAttributes *) layoutAttributesForDecorationViewOfKind:(NSString *)decorationViewKind atIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewLayoutAttributes *attributes = [self.layoutInfo objectForKey:decorationViewKind];
     return attributes;
 }
 
@@ -86,6 +100,10 @@
             [self.layoutInfo setObject:attributes forKey:indexPath];
         }
     }
+    
+    UICollectionViewLayoutAttributes *headerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:__calendarHeaderKind withIndexPath:[NSIndexPath indexPathWithIndex:0]];
+    headerAttributes.frame = [self frameForHeader];
+    [self.layoutInfo setObject:headerAttributes forKey:__calendarHeaderKind];
 }
 
 - (CGRect) frameForCellAtIndexPath:(NSIndexPath *)indexPath {
@@ -96,6 +114,13 @@
     float originY =  self.cellSide * cellRow;
     
     return CGRectMake(originX, originY, self.cellSide, self.cellSide);
+}
+
+- (CGRect) frameForHeader {
+    CGRect collectionViewBounds = [self.collectionView bounds];
+    CGRect headerDefaultBounds = [KGCalendarHeaderView defaultBounds];
+    CGRect headerBounds = CGRectMake(collectionViewBounds.origin.x, collectionViewBounds.origin.y - headerDefaultBounds.size.height + 1, headerDefaultBounds.size.width, headerDefaultBounds.size.height);
+    return headerBounds;
 }
 
 @end

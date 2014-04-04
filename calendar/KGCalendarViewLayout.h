@@ -14,6 +14,8 @@
     int _cellSide;
     
     NSMutableDictionary *_layoutInfo;
+    
+    BOOL _headerNibLoaded;
 }
 
 @property (nonatomic, assign) int rows;

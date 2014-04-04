@@ -10,6 +10,7 @@
 #import "KGCalendarCore.h"
 #import "KGCalendarViewCell.h"
 #import "KGCalendarViewLayout.h"
+#import "KGCalendarHeaderView.h"
 
 @interface KGCalendarViewController ()
 
