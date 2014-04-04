@@ -101,7 +101,7 @@
     [self.calendar.view setFrame:newCalendarFrame];
     [self.calendarContentView addSubview:self.calendar.view];
     
-    [UIView animateWithDuration:0.2
+    [UIView animateWithDuration:0.3
                      animations:^(){
                          
                          CGRect oldCalendarFrame = CGRectMake(x + direction * width, y, width, height);

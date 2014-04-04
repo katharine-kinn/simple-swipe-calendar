@@ -8,6 +8,7 @@
 
 #import "KGCalendarViewLayout.h"
 #import "KGCalendarCore.h"
+#import "KGCalendarViewController.h"
 
 @implementation KGCalendarViewLayout
 
@@ -34,14 +35,6 @@
 
 - (void) setup {
     self.columns = 7;
-    
-    int minCellsCount = [KGCalendarCore sharedCalendarCore].currentMonthDaysCount + [KGCalendarCore sharedCalendarCore].currentFirstMonthDayOffset + 1;
-    
-    while (minCellsCount % self.columns != 0) {
-        minCellsCount++;
-    }
-    
-    self.rows = minCellsCount / self.columns;
     self.cellSide = 42;
     
 }
@@ -69,6 +62,22 @@
 }
 
 - (void) prepareLayout {
+    
+    KGCalendarViewController *delegate = nil;
+    if (self.collectionView.delegate) {
+        if ([self.collectionView.delegate isKindOfClass:[KGCalendarViewController class]]) {
+            delegate = (KGCalendarViewController *)self.collectionView.delegate;
+        }
+    }
+    
+     NSAssert(delegate != nil, @"No delegate for layout");
+    int minCellsCount = delegate.calendarSheet.count + delegate.firstDayOffset + 1;
+    while (minCellsCount % self.columns != 0) {
+        minCellsCount++;
+    }
+    
+    self.rows = minCellsCount / self.columns;
+    
     for (int section = 0; section < [self.collectionView numberOfSections]; ++section) {
         for (int cell = 0; cell < [self.collectionView numberOfItemsInSection:section]; ++cell) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:cell inSection:section];

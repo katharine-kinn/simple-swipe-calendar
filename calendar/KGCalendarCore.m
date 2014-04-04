@@ -14,8 +14,7 @@
 
 @implementation KGCalendarCore
 
-@synthesize currentFirstMonthDayOffset = _currentFirstMonthDayOffset;
-@synthesize currentMonthDaysCount = _currentMonthDaysCount;
+
 
 static KGCalendarCore *__instance = nil;
 + (KGCalendarCore *) sharedCalendarCore {

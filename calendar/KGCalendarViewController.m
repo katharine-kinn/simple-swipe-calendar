@@ -88,6 +88,8 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
 {
     _cellNibLoaded = NO;
     
+    [self loadCalendarSheet]; // needed for layout prepare
+    
     [super viewDidLoad];
 
     [self.calendarView registerClass:[KGCalendarViewCell class] forCellWithReuseIdentifier:__calendarCellReuseIdentifier];
@@ -98,7 +100,7 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
     NSInteger year = self.currentYear;
     _currentYear = 0;
     
-    [self setupCurrentDateWithMonth:month year:year];
+    [self setupCurrentDateWithMonth:month year:year]; 
 }
 
 - (void)didReceiveMemoryWarning
@@ -112,8 +114,7 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
 - (void) loadCalendarSheet {
     
     self.calendarSheet = [[KGCalendarCore sharedCalendarCore] calendarSheetForMonth:self.currentMonth year:self.currentYear];
-    _firstDayOffset = [[KGCalendarCore sharedCalendarCore] firstDayOffsetForMonth:self.currentMonth year:self.currentMonth];
-
+    _firstDayOffset = [[KGCalendarCore sharedCalendarCore] firstDayOffsetForMonth:self.currentMonth year:self.currentYear];
 }
 
 - (void) setMonthLabelTextWithMonth:(NSInteger)month {
@@ -192,15 +193,8 @@ static int __monthsMax = 12;
         [self setMonthLabelTextWithMonth:_currentMonth];
         
         dispatch_async(dispatch_get_main_queue(), ^(){
-
             [self loadCalendarSheet];
             [self.calendarView reloadData];
-            
-            if (self.delegate) {
-                [KGCalendarCore sharedCalendarCore].currentMonthDaysCount = self.calendarSheet.count;
-                [KGCalendarCore sharedCalendarCore].currentFirstMonthDayOffset = _firstDayOffset;
-            }
-
         });
         
         dispatch_async(dispatch_get_main_queue(), ^(){
@@ -235,11 +229,6 @@ static int __monthsMax = 12;
             dispatch_async(dispatch_get_main_queue(), ^() {
                 [self loadCalendarSheet];
                 [self.calendarView reloadData];
-                
-                if (self.delegate) {
-                    [KGCalendarCore sharedCalendarCore].currentMonthDaysCount = self.calendarSheet.count;
-                    [KGCalendarCore sharedCalendarCore].currentFirstMonthDayOffset = _firstDayOffset;
-                }
             });
             
             dispatch_async(dispatch_get_main_queue(), ^(){

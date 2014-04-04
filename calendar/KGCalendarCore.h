@@ -13,13 +13,7 @@
 
 @interface KGCalendarCore : NSObject {
     NSCalendar *_calendar;
-    
-    NSInteger _currentMonthDaysCount;
-    NSInteger _currentFirstMonthDayOffset;
 }
-
-@property (nonatomic, assign) NSInteger currentMonthDaysCount;
-@property (nonatomic, assign) NSInteger currentFirstMonthDayOffset;
 
 + (KGCalendarCore *) sharedCalendarCore;
 

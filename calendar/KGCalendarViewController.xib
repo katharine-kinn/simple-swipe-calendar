@@ -26,7 +26,7 @@
                     <cells/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="IgA-qL-s4n"/>
-                        <outlet property="delegate" destination="-1" id="0Nr-pq-HoS"/>
+                        <outlet property="delegate" destination="-1" id="RDV-aM-9ni"/>
                     </connections>
                 </collectionView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Do-uG-Lpv" userLabel="month label">
