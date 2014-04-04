@@ -76,11 +76,21 @@
 - (void) onMonthChanged:(NSInteger)oldMonth {
     
     int direction = 0;
+    
     if (oldMonth < self.calendar.currentMonth) {
         direction = -1;
     } else {
         direction = 1;
     }
+    
+    if (self.oldCalendar) {
+        if (self.oldCalendar.currentYear > self.calendar.currentYear && self.oldCalendar.currentMonth < self.calendar.currentMonth) {
+            direction = 1;
+        } else if (self.oldCalendar.currentYear < self.calendar.currentYear && self.oldCalendar.currentMonth > self.calendar.currentMonth) {
+            direction = -1;
+        }
+    }
+
     
     CGFloat x = self.oldCalendar.view.frame.origin.x;
     CGFloat y = self.oldCalendar.view.frame.origin.y;
@@ -91,7 +101,7 @@
     [self.calendar.view setFrame:newCalendarFrame];
     [self.calendarContentView addSubview:self.calendar.view];
     
-    [UIView animateWithDuration:1.5
+    [UIView animateWithDuration:0.2
                      animations:^(){
                          
                          CGRect oldCalendarFrame = CGRectMake(x + direction * width, y, width, height);

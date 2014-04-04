@@ -108,5 +108,24 @@ static KGCalendarCore *__instance = nil;
     return dateComponents;
 }
 
+- (NSString *) localizedMonthName:(NSInteger)month {
+//
+//    NSDateComponents *dateComponents = [[[NSDateComponents alloc] init] autorelease];
+//    [dateComponents setCalendar:_calendar];
+//    [dateComponents setMonth:month];
+//    
+//    NSDate *date = [dateComponents date];
+    
+//    NSLocale *locale = ;
+//    NSString *dateString = [date descriptionWithLocale:locale];
+    
+    
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setCalendar:_calendar];
+    [dateFormatter setLocale:[NSLocale currentLocale]];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    return [[dateFormatter monthSymbols] objectAtIndex:month - 1];
+}
+
 
 @end

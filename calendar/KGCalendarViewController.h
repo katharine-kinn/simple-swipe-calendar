@@ -13,6 +13,8 @@
 - (void) onMonthChanged:(NSInteger)oldMonth;
 - (void) onYearChanged:(NSInteger)oldYear;
 
+- (void) onCurrentDateChanged:(NSInteger)month year:(NSInteger)year;
+
 @end
 
 @interface KGCalendarViewController : UIViewController<UICollectionViewDataSource> {
@@ -22,6 +24,8 @@
     NSInteger _currentYear;
     
     NSObject<KGCalendarViewControllerDelegate> *_delegate;
+    
+    BOOL _cellNibLoaded;
 }
 
 @property (nonatomic, assign, getter = getCurrentMonth, setter = setCurrentMonth:) NSInteger currentMonth;
@@ -30,6 +34,8 @@
 @property (nonatomic, retain) NSArray *calendarSheet;
 
 @property (retain, nonatomic) IBOutlet UICollectionView *calendarView;
+@property (retain, nonatomic) IBOutlet UILabel *monthLabel;
+@property (retain, nonatomic) IBOutlet UILabel *yearLabel;
 
 - (id) initWithMonth:(NSInteger)month year:(NSInteger)year delegate:(NSObject<KGCalendarViewControllerDelegate> *)delegate;
 - (id) initWithTodayWithDelegate:(NSObject<KGCalendarViewControllerDelegate> *)delegate;

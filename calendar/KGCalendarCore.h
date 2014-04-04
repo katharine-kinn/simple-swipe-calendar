@@ -26,6 +26,8 @@
 - (NSArray *) calendarSheetForMonth:(NSInteger)month year:(NSInteger)year;
 - (int) firstDayOffsetForMonth:(NSInteger)month year:(NSInteger)year;
 
+- (NSString *) localizedMonthName:(NSInteger)month;
+
 - (NSDateComponents *) getTodayDateComponents;
 
 

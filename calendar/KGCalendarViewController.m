@@ -79,11 +79,15 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_calendarSheet release];
     [_calendarView release];
+    [_monthLabel release];
+    [_yearLabel release];
     [super dealloc];
 }
 
 - (void)viewDidLoad
 {
+    _cellNibLoaded = NO;
+    
     [super viewDidLoad];
 
     [self.calendarView registerClass:[KGCalendarViewCell class] forCellWithReuseIdentifier:__calendarCellReuseIdentifier];
@@ -112,6 +116,14 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
 
 }
 
+- (void) setMonthLabelTextWithMonth:(NSInteger)month {
+    [self.monthLabel setText:[[KGCalendarCore sharedCalendarCore] localizedMonthName:month]];
+}
+
+- (void) setYearLabelTextWithYear:(NSInteger)year {
+    [self.yearLabel setText:[NSString stringWithFormat:@"%d", (int)year]];
+}
+
 #pragma mark - collection view data source implementation
 
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -122,14 +134,13 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
     return self.calendarSheet.count + _firstDayOffset;
 }
 
-static BOOL __calendarCellNibLoaded = NO;
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (!__calendarCellNibLoaded) {
+    if (!_cellNibLoaded) {
         [self.calendarView registerNib:[UINib nibWithNibName:@"KGCalendarViewCell"
                                                       bundle:[NSBundle mainBundle]]
             forCellWithReuseIdentifier:__calendarCellReuseIdentifier];
-        __calendarCellNibLoaded = YES;
+        _cellNibLoaded = YES;
     }
     
     KGCalendarViewCell *cell = [self.calendarView dequeueReusableCellWithReuseIdentifier:__calendarCellReuseIdentifier forIndexPath:indexPath];
@@ -163,24 +174,25 @@ static int __monthsMax = 12;
 - (void) setCurrentMonth:(NSInteger)currentMonth {
     
     NSAssert(currentMonth >= 0, @"Month cannot be negative");
-
-    __block NSInteger currentMonthRef = currentMonth;
     
     if (_currentMonth != currentMonth) {
         
         NSInteger oldMonth = _currentMonth;
+        NSInteger oldYear = _currentYear;
+        
+        if (currentMonth > __monthsMax) {
+            currentMonth = 1;
+            [self setCurrentYear:oldYear + 1 shouldUpdateViewAndDelegate:NO];
+        } else if (currentMonth == 0) {
+            currentMonth = __monthsMax;
+            [self setCurrentYear:oldYear - 1 shouldUpdateViewAndDelegate:NO];
+        }
+        
+        _currentMonth = currentMonth;
+        [self setMonthLabelTextWithMonth:_currentMonth];
         
         dispatch_async(dispatch_get_main_queue(), ^(){
-            if (currentMonthRef > __monthsMax) {
-                currentMonthRef = 1;
-                self.currentYear++;
-            } else if (currentMonthRef == 0) {
-                currentMonthRef = __monthsMax;
-                self.currentYear--;
-            }
-            
-            _currentMonth = currentMonthRef;
-            
+
             [self loadCalendarSheet];
             [self.calendarView reloadData];
             
@@ -200,42 +212,54 @@ static int __monthsMax = 12;
             if (self.delegate) {
                 [self.delegate onMonthChanged:oldMonth];
             }
+            
+            if (oldYear != _currentYear) {
+                [self.delegate onYearChanged:oldYear];
+            }
         });
     
     }
     
 }
 
-- (void) setCurrentYear:(NSInteger)currentYear {
-
+- (void) setCurrentYear:(NSInteger)currentYear shouldUpdateViewAndDelegate:(BOOL)shouldUpdateViewAndDelegate {
     NSAssert(currentYear >= 0, @"Year cannot be negative");
     
     if (_currentYear != currentYear) {
         NSInteger oldYear = _currentYear;
+        _currentYear = currentYear;
+        [self setYearLabelTextWithYear:_currentYear];
         
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            _currentYear = currentYear;
-            [self loadCalendarSheet];
-            [self.calendarView reloadData];
+        if (shouldUpdateViewAndDelegate) {
             
-            if (self.delegate) {
-                [KGCalendarCore sharedCalendarCore].currentMonthDaysCount = self.calendarSheet.count;
-                [KGCalendarCore sharedCalendarCore].currentFirstMonthDayOffset = _firstDayOffset;
-            }
+            dispatch_async(dispatch_get_main_queue(), ^() {
+                [self loadCalendarSheet];
+                [self.calendarView reloadData];
+                
+                if (self.delegate) {
+                    [KGCalendarCore sharedCalendarCore].currentMonthDaysCount = self.calendarSheet.count;
+                    [KGCalendarCore sharedCalendarCore].currentFirstMonthDayOffset = _firstDayOffset;
+                }
+            });
+            
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                KGCalendarViewLayout *layout = [[[KGCalendarViewLayout alloc] init] autorelease];
+                [self.calendarView setCollectionViewLayout:layout animated:NO];
+            });
+            
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                if (self.delegate) {
+                    [self.delegate onYearChanged:oldYear];
+                }
+            });
+        }
 
-        });
-        
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            KGCalendarViewLayout *layout = [[[KGCalendarViewLayout alloc] init] autorelease];
-            [self.calendarView setCollectionViewLayout:layout animated:NO];
-        });
-        
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            if (self.delegate) {
-                [self.delegate onYearChanged:oldYear];
-            }
-        });
     }
+}
+
+- (void) setCurrentYear:(NSInteger)currentYear {
+
+    [self setCurrentYear:currentYear shouldUpdateViewAndDelegate:YES];
     
 }
 
