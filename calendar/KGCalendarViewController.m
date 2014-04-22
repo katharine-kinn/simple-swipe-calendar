@@ -147,6 +147,7 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
     
     KGCalendarViewCell *cell = [self.calendarView dequeueReusableCellWithReuseIdentifier:__calendarCellReuseIdentifier forIndexPath:indexPath];
     cell.dayLabel.text = @"";
+    cell.backgroundColor = [UIColor whiteColor];
     
     for (int i = 0; i < self.calendarSheet.count; ++i) {
         NSDictionary *dayDict = [self.calendarSheet objectAtIndex:i];
@@ -156,7 +157,6 @@ static NSString *__calendarCellReuseIdentifier = @"CalendarViewCell";
             cell.dayLabel.text = [NSString stringWithFormat:@"%d", day];
             
             NSDateComponents *today = [[KGCalendarCore sharedCalendarCore] getTodayDateComponents];
-            cell.backgroundColor = [UIColor whiteColor];
             if (day == today.day && self.currentMonth == today.month && self.currentYear == today.year) {
                 cell.backgroundColor = [UIColor colorWithRed:1. green:153./255. blue:51./255. alpha:1.];
             }
