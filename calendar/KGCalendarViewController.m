@@ -260,47 +260,4 @@ static int __monthsMax = 12;
     
 }
 
-
-#pragma mark - status bar orientation
-
-- (void) onStatusBarOrientationChanged:(NSNotification *)notification {
-    [self setupSubviewPositionsWithCurrentInterfaceOrientation];
-}
-
-- (void) setupSubviewPositionsWithCurrentInterfaceOrientation {
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    [self setupSubviewPositionsWithInterfaceOrientation:orientation];
-}
-
-- (void) setupSubviewPositionsWithInterfaceOrientation:(UIInterfaceOrientation)orientation {
-    
-    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    
-    float width = 0;
-    float height = 0;
-    float parentWidth = 0;
-    float parentHeight = 0;
-    
-    UIInterfaceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if (currentOrientation == UIInterfaceOrientationLandscapeLeft || currentOrientation == UIInterfaceOrientationLandscapeRight) {
-        width = self.view.frame.size.width;
-        parentWidth = applicationFrame.size.height;
-        height = self.view.frame.size.height;
-        parentHeight = applicationFrame.size.width;
-    }
-    
-    if (currentOrientation == UIInterfaceOrientationPortrait || currentOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-        width = self.view.frame.size.height;
-        parentWidth = applicationFrame.size.width;
-        height = self.view.frame.size.width;
-        parentHeight = applicationFrame.size.height;
-    }
-    
-    [self.view setFrame:CGRectMake((parentWidth - width) / 2,
-                                   (parentHeight - height) / 2,
-                                   width,
-                                   height)];
-}
-
 @end

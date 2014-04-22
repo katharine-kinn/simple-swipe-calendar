@@ -12,7 +12,6 @@
 @implementation KGCalendarAppDelegate
 
 @synthesize rootViewController = _rootViewController;
-@synthesize calendarViewController = _calendarViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -24,8 +23,6 @@
     self.rootViewController = [[[UINavigationController alloc] init] autorelease];
     [self.window setRootViewController:self.rootViewController];
 
-//    self.calendarViewController = [[[KGCalendarViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-//    self.calendalScrollViewController = [[[KGCalendarScrollViewController alloc] initWithNibName:nil bundle:nil] autorelease];
     self.calendarSwipeViewController = [[[KGCalendarSwipeViewController alloc] initWithRelativeToSuperviewPosition:CGPointMake(200, 200)] autorelease];
     [self.rootViewController.view addSubview:self.calendarSwipeViewController.view];
     
